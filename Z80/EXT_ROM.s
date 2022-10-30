@@ -1,22 +1,21 @@
-AZLCNV		EQU		0BEFH		;小文字->大文字変換
-CONOUT		EQU		1075H		;CRTへの1バイト出力
-MSGOUT		EQU		30CFH		;文字列の出力
-LINPUT		EQU		28F9H		;スクリーン・エディタ
-TBLOAD		EQU		0FAA7H		;LOADコマンドジャンプアドレス
-TBSAVE		EQU		0FAA9H		;SAVEコマンドジャンプアドレス
-TBLLIST		EQU		0FA91H		;LLISTコマンドジャンプアドレス
-LBUF		EQU		0FBB9H
-MONCLF		EQU		2739H		;CRコード及びLFコードの表示
-KYSCAN		EQU		0FBCH		;リアルタイム・キーボード・スキャニング
-MONBHX		EQU		397AH		;Aレジスタの内容を10進数として表示
-DISPBL		EQU		1BCDH		;ベルコードの出力
-FUNC8		EQU		0FB75H		;F8 KEY 定義領域
-KEYIN		EQU		0FC4H		;1文字入力
-STOPFLG		EQU		0FA18H		;STOP ESC KEY FLG
-FNAME		EQU		0FECBH		;CMT FILE NAME
-IOTimerCt	EQU		0F6H		; タイマカウントアップ値
-MODEL		EQU		0FA33H		;機種格納WORK(PC-6001未使用領域)
-DSPCLR		EQU		1DFBH		;画面消去
+AZLCNV		EQU		0BEFH			;小文字->大文字変換
+KYSCAN		EQU		0FBCH			;リアルタイム・キーボード・スキャニング
+KEYIN		EQU		0FC4H			;1文字入力
+CONOUT		EQU		1075H			;CRTへの1バイト出力
+DISPBL		EQU		1BCDH			;ベルコードの出力
+DSPCLR		EQU		1DFBH			;画面消去
+MONCLF		EQU		2739H			;CRコード及びLFコードの表示
+LINPUT		EQU		28F9H			;スクリーン・エディタ
+MSGOUT		EQU		30CFH			;文字列の出力
+MONBHX		EQU		397AH			;Aレジスタの内容を10進数として表示
+STOPFLG		EQU		0FA18H			;STOP ESC KEY FLG
+ASTRLEN		EQU		0FA32H			;自動実行文字列数
+MODEL		EQU		0FA33H			;機種格納WORK(PC-6001未使用領域)
+FUNC8		EQU		0FB75H			;F8 KEY 定義領域
+ASTRSTRG	EQU		0FB8DH			;自動実行文字列格納場所
+LBUF		EQU		0FBB9H			;行バッファ及び自動実行文字列格納先
+FNAME		EQU		0FECBH			;CMT FILE NAME
+IOTimerCt	EQU		0F6H			; タイマカウントアップ値
 
 ;PC-6001
 PPI_A		EQU		07CH
@@ -129,7 +128,7 @@ BRET2:	CALL	MONCLF
 		JR		NC,BRET2
 
 		LD		HL,LBUF				;AUTOSTART文字列格納場所
-		LD		(0FB8DH),HL
+		LD		(ASTRSTRG),HL
 		LD		(HL),A				;PAGE書き込み
 		CALL	MONCLF
 		INC		HL
@@ -138,7 +137,7 @@ BRET2:	CALL	MONCLF
 		INC		HL
 
 		LD		A,15				;AUTOSTART文字列数
-		LD		(0FA32H),A
+		LD		(ASTRLEN),A
 
 		LD		B,13
 		LD		DE,MODE12
@@ -396,7 +395,7 @@ ML00:	CP		05H
 		JP		CMD1
 		
 ML1:	LD		HL,LBUF				;AUTOSTART文字列格納場所
-		LD		(0FB8DH),HL
+		LD		(ASTRSTRG),HL
 
 		CALL	RCVBYTE				;PAGE受信
 		ADD		A,30H
@@ -427,7 +426,7 @@ ML21:	CALL	RCVBYTE				;p6tファイル中のオートスタート文字列数受信
 		JR		ML23
 ML22:	LD		A,2
 ML23:	ADD		A,B
-		LD		(0FA32H),A
+		LD		(ASTRLEN),A
 
 		LD		A,B
 		AND		A					;p6tファイル中のオートスタート文字列が無いならスキップ
@@ -478,7 +477,7 @@ PL2:	CALL	MONCLF
 		JR		NC,PL2
 
 		LD		HL,LBUF				;AUTOSTART文字列格納場所
-		LD		(0FB8DH),HL
+		LD		(ASTRSTRG),HL
 		LD		(HL),A				;PAGE書き込み
 		CALL	MONCLF
 		INC		HL
@@ -498,7 +497,7 @@ PL2:	CALL	MONCLF
 		LD		A,8					;AUTOSTART文字列数
 		JR		P68
 P67:	LD		A,12				;AUTOSTART文字列数
-P68:	LD		(0FA32H),A
+P68:	LD		(ASTRLEN),A
 
 		LD		A,(MODEL)
 		AND		A
@@ -512,7 +511,7 @@ P63:	LD		A,(DE)
 		INC		DE
 		DJNZ	P63
 
-P64:	LD		A,(0FA32H)
+P64:	LD		A,(ASTRLEN)
 		CP		8
 		JR		Z,P66
 		LD		B,ATSTR_END-ATSTR
@@ -529,9 +528,9 @@ P65:	LD		A,(DE)
 		AND		A
 		JP		Z,DCLR
 
-		LD		A,(0FA32H)
+		LD		A,(ASTRLEN)
 		ADD		A,13
-		LD		(0FA32H),A
+		LD		(ASTRLEN),A
 
 		CALL	SDCHG1				;SD用パッチあてルーチンへ
 		CALL	SDCHG3

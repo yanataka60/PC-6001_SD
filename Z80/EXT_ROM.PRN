@@ -1,23 +1,22 @@
 			  Z80 ASSEMBLER - ZASM VER 1.6
-  0BEF                	AZLCNV		EQU		0BEFH		;小文字->大文字変換
-  1075                	CONOUT		EQU		1075H		;CRTへの1バイト出力
-  30CF                	MSGOUT		EQU		30CFH		;文字列の出力
-  28F9                	LINPUT		EQU		28F9H		;スクリーン・エディタ
-  FAA7                	TBLOAD		EQU		0FAA7H		;LOADコマンドジャンプアドレス
-  FAA9                	TBSAVE		EQU		0FAA9H		;SAVEコマンドジャンプアドレス
-  FA91                	TBLLIST		EQU		0FA91H		;LLISTコマンドジャンプアドレス
-  FBB9                	LBUF		EQU		0FBB9H
-  2739                	MONCLF		EQU		2739H		;CRコード及びLFコードの表示
-  0FBC                	KYSCAN		EQU		0FBCH		;リアルタイム・キーボード・スキャニング
-  397A                	MONBHX		EQU		397AH		;Aレジスタの内容を10進数として表示
-  1BCD                	DISPBL		EQU		1BCDH		;ベルコードの出力
-  FB75                	FUNC8		EQU		0FB75H		;F8 KEY 定義領域
-  0FC4                	KEYIN		EQU		0FC4H		;1文字入力
-  FA18                	STOPFLG		EQU		0FA18H		;STOP ESC KEY FLG
-  FECB                	FNAME		EQU		0FECBH		;CMT FILE NAME
-  00F6                	IOTimerCt	EQU		0F6H		; タイマカウントアップ値
-  FA33                	MODEL		EQU		0FA33H		;機種格納WORK(PC-6001未使用領域)
-  1DFB                	DSPCLR		EQU		1DFBH		;画面消去
+  0BEF                	AZLCNV		EQU		0BEFH			;小文字->大文字変換
+  0FBC                	KYSCAN		EQU		0FBCH			;リアルタイム・キーボード・スキャニング
+  0FC4                	KEYIN		EQU		0FC4H			;1文字入力
+  1075                	CONOUT		EQU		1075H			;CRTへの1バイト出力
+  1BCD                	DISPBL		EQU		1BCDH			;ベルコードの出力
+  1DFB                	DSPCLR		EQU		1DFBH			;画面消去
+  2739                	MONCLF		EQU		2739H			;CRコード及びLFコードの表示
+  28F9                	LINPUT		EQU		28F9H			;スクリーン・エディタ
+  30CF                	MSGOUT		EQU		30CFH			;文字列の出力
+  397A                	MONBHX		EQU		397AH			;Aレジスタの内容を10進数として表示
+  FA18                	STOPFLG		EQU		0FA18H			;STOP ESC KEY FLG
+  FA32                	ASTRLEN		EQU		0FA32H			;自動実行文字列数
+  FA33                	MODEL		EQU		0FA33H			;機種格納WORK(PC-6001未使用領域)
+  FB75                	FUNC8		EQU		0FB75H			;F8 KEY 定義領域
+  FB8D                	ASTRSTRG	EQU		0FB8DH			;自動実行文字列格納場所
+  FBB9                	LBUF		EQU		0FBB9H			;行バッファ及び自動実行文字列格納先
+  FECB                	FNAME		EQU		0FECBH			;CMT FILE NAME
+  00F6                	IOTimerCt	EQU		0F6H			; タイマカウントアップ値
                       	
                       	;PC-6001
   007C                	PPI_A		EQU		07CH
@@ -130,7 +129,7 @@
   408D  30E9          			JR		NC,BRET2
                       	
   408F  21B9FB        			LD		HL,LBUF				;AUTOSTART文字列格納場所
-  4092  228DFB        			LD		(0FB8DH),HL
+  4092  228DFB        			LD		(ASTRSTRG),HL
   4095  77            			LD		(HL),A				;PAGE書き込み
   4096  CD3927        			CALL	MONCLF
   4099  23            			INC		HL
@@ -139,7 +138,7 @@
   409D  23            			INC		HL
                       	
   409E  3E0F          			LD		A,15				;AUTOSTART文字列数
-  40A0  3232FA        			LD		(0FA32H),A
+  40A0  3232FA        			LD		(ASTRLEN),A
                       	
   40A3  060D          			LD		B,13
   40A5  111D41        			LD		DE,MODE12
@@ -397,7 +396,7 @@
   4262  C32840        			JP		CMD1
                       			
   4265  21B9FB        	ML1:	LD		HL,LBUF				;AUTOSTART文字列格納場所
-  4268  228DFB        			LD		(0FB8DH),HL
+  4268  228DFB        			LD		(ASTRSTRG),HL
                       	
   426B  CD2A41        			CALL	RCVBYTE				;PAGE受信
   426E  C630          			ADD		A,30H
@@ -428,7 +427,7 @@
   4293  1802          			JR		ML23
   4295  3E02          	ML22:	LD		A,2
   4297  80            	ML23:	ADD		A,B
-  4298  3232FA        			LD		(0FA32H),A
+  4298  3232FA        			LD		(ASTRLEN),A
                       	
   429B  78            			LD		A,B
   429C  A7            			AND		A					;p6tファイル中のオートスタート文字列が無いならスキップ
@@ -479,7 +478,7 @@
   4315  30E9          			JR		NC,PL2
                       	
   4317  21B9FB        			LD		HL,LBUF				;AUTOSTART文字列格納場所
-  431A  228DFB        			LD		(0FB8DH),HL
+  431A  228DFB        			LD		(ASTRSTRG),HL
   431D  77            			LD		(HL),A				;PAGE書き込み
   431E  CD3927        			CALL	MONCLF
   4321  23            			INC		HL
@@ -499,7 +498,7 @@
   433B  3E08          			LD		A,8					;AUTOSTART文字列数
   433D  1802          			JR		P68
   433F  3E0C          	P67:	LD		A,12				;AUTOSTART文字列数
-  4341  3232FA        	P68:	LD		(0FA32H),A
+  4341  3232FA        	P68:	LD		(ASTRLEN),A
                       	
   4344  3A33FA        			LD		A,(MODEL)
   4347  A7            			AND		A
@@ -513,7 +512,7 @@
   4352  13            			INC		DE
   4353  10FA          			DJNZ	P63
                       	
-  4355  3A32FA        	P64:	LD		A,(0FA32H)
+  4355  3A32FA        	P64:	LD		A,(ASTRLEN)
   4358  FE08          			CP		8
   435A  2807          			JR		Z,P66
   435C  060A          			LD		B,ATSTR_END-ATSTR
@@ -530,9 +529,9 @@
   4371  A7            			AND		A
   4372  CAB842        			JP		Z,DCLR
                       	
-  4375  3A32FA        			LD		A,(0FA32H)
+  4375  3A32FA        			LD		A,(ASTRLEN)
   4378  C60D          			ADD		A,13
-  437A  3232FA        			LD		(0FA32H),A
+  437A  3232FA        			LD		(ASTRLEN),A
                       	
   437D  CDB740        			CALL	SDCHG1				;SD用パッチあてルーチンへ
   4380  CDC740        			CALL	SDCHG3
