@@ -145,13 +145,17 @@
 
 　BASIC-ROM挿し替え用基板に27128を使うときはA14(S1)はHigh(5V)に固定します。
 
-　27256を使うときは、A14(S1)はLow(GND)にします。が、A14も3Pスイッチを付ければ4000h～7FFFhまでを使って4つまでBASIC-ROMを切り替えられるようにも出来ます。
+　27256を使うときは、A14(S1)はLow(GND)にします。が、A14もA13と同様に3Pスイッチで切り替えられるようにすれば4000h～7FFFhまでを使って4つまでBASIC-ROMを切り替えられるようにも出来ます。
 
 ![ROM_SOCKET1](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(1).JPG)
 
 ![ROM_SOCKET2](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(2).JPG)
 
 ![ROM_SOCKET3](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(3).JPG)
+
+　3PトグルスイッチによりCMTとSDを切り替えられるようにします。
+
+　3PトグルスイッチはRS-232C用のパネルを使えばちょうどいいです。
 
 ![ROM_SOCKET4](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(4).JPG)
 
