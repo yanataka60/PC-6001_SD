@@ -16,6 +16,8 @@
 
 ![PC-6001_SD](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/PC-6001_SD(2).JPG)
 
+![ROM_SOCKET](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(1).JPG)
+
 ## 対応できないもの
 　BASIC-ROMのCMT関連ルーチンにパッチを当てたROMに差し替えることでSD-CARDへのアクセスを実現していますのでBASIC-ROMのCMT関連ルーチンをコールせず独自にCMTからLOADするソフト（ロードランナー等）は対応できないので途中で止まります。
 
