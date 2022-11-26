@@ -1,6 +1,6 @@
 # PC-6001にSD-CARDからロード、セーブ機能
 
-![TITLE](https://github.com/yanataka60/PC-6001mk2_SD/blob/main/JPEG/TITLE.jpg)
+![TITLE](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/TITLE.jpg)
 
 　PC-6001でSD-CARDからロード、セーブ機能を実現するものです。
 
