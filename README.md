@@ -22,15 +22,15 @@
 ## 回路図
 　KiCadフォルダ内のPC-6001_SD.pdfを参照してください。
 
-[回路図](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD.pdf)
+[回路図](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD/PC-6001_SD.pdf)
 
-![PC-6001_SD](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD_1.jpg)
+![PC-6001_SD](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD/PC-6001_SD.jpg)
 
 　BASIC-ROM挿し替え用基板です。KiCadフォルダ内のPC-6001_SD.pdfを参照してください。
 
-[回路図](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD.pdf)
+[回路図](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/ROM_SOCKET/ROM_SOCKET.pdf)
 
-![PC-6001_SD](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD_1.jpg)
+![PC-6001_SD](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/ROM_SOCKET/ROM_SOCKET.jpg)
 
 ## 部品
 |番号|品名|数量|備考|
