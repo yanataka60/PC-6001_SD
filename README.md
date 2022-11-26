@@ -67,9 +67,9 @@
 
 ![MicroSD Card Adapter1](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/MicroSD%20Card%20Adapter.JPG)
 
-![MicroSD Card Adapter2](https://github.com/yanataka60/PC-6001mk2_SD/blob/main/JPEG/MicroSD%20Card%20Adapter2.JPG)
+![MicroSD Card Adapter2](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/MicroSD%20Card%20Adapter2.JPG)
 
-![MicroSD Card Adapter3](https://github.com/yanataka60/PC-6001mk2_SD/blob/main/JPEG/MicroSD%20Card%20Adapter3.JPG)
+![MicroSD Card Adapter3](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/MicroSD%20Card%20Adapter3.JPG)
 
 ## ROMへの書込み
 　Z80フォルダ内のEXT_ROM.binをROMライター(TL866II Plus等)を使って2764又は28C64に書き込みます。
