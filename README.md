@@ -118,7 +118,7 @@
 
 　「ROM60A.CAS」「ROM60B.CAS」とも拡張子を「.bin」に変更します。
 
-　「ROM60A.bin」はBASIC-ROM全体(0000h～3FFFh)のダンプファイルです。EMULATOR等に使えます。
+　「ROM60A.bin」はBASIC-ROM全体(0000h～3FFFh)のダンプファイルです。Emulator等に使ってください。
 
 　「ROM60B.bin」はBASIC-ROM前半(0000h～1FFFh)のダンプファイルでこちらにパッチを当て挿し替えることになります。
 
