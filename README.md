@@ -121,23 +121,37 @@
 　「ROM60B.bin」はBASIC-ROM前半(0000h～1FFFh)のダンプファイルでこちらにパッチを当て挿し替えることになります。
 
 ### BASIC-ROMへのパッチあて
-　以下のアドレスを修正します。
+　まず、「ROM60B.bin」をコピーし「ROM60C.bin」を作ります。
+
+　「ROM60C.bin」の以下のアドレスを修正します。
 
 |ADDRESS|修正前|修正後|
 | ------------ | ------------ | ------------ |
-|1A61|C5 D5 E5|C3 12 58|
-|1A70|C5 D5 E5|C3 15 58|
-|1AB8|C5 D5 E5|C3 18 58|
-|1ACC|C5 D5 E5|C3 1B 58|
-|1B06|C5 D5 E5|C3 1E 58|
+|1A61|C5 D5 E5|C3 04 40|
+|1A70|C5 D5 E5|C3 07 40|
+|1AB8|C5 D5 E5|C3 0A 40|
+|1ACC|C5 D5 E5|C3 0D 40|
+|1B06|C5 D5 E5|C3 10 40|
 
-　出来上がったバイナリを27128等に焼いて本体内ICソケットに差し替えても良いのですが、できれば27512等にオリジナルバイナリを前半、パッチ済みバイナリを後半において焼き、スイッチで切り替えられるようにすると便利です。
+　「ROM60B.bin」と「ROM60C.bin」をマージし、「ROM60.bin」として保存します。ROM60B.binが0000h～1FFFh、ROM60C.binが2000h～3FFFhとなります。
 
-![ROM_DUMP5](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(5).JPG)
+　出来上がった「ROM60.bin」を27128又は27256等に焼きます。
 
-![ROM_DUMP6](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(6).JPG)
+### BASIC-ROMの挿し替え
 
+　27128256を使うときはA14
 
+![ROM_SOCKET1](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(1).JPG)
+
+![ROM_SOCKET2](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(2).JPG)
+
+![ROM_SOCKET3](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(3).JPG)
+
+![ROM_SOCKET4](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(4).JPG)
+
+![ROM_SOCKET5](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(5).JPG)
+
+![ROM_SOCKET6](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(6).JPG)
 
 ## 接続
 　カートリッジスロットに挿入します。
