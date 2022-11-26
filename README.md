@@ -102,7 +102,7 @@
 
 ![ROM_DUMP](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP.JPG)
 
-　入力待ちになったら「EXEC &H4012[CR]」と入力するとBASIC-ROMの内容をSD-CARDに保存するプログラムが実行されます。
+　入力待ちになったら「EXEC &H4013[CR]」と入力するとBASIC-ROMの内容をSD-CARDに保存するプログラムが実行されます。
 
 ![ROM_DUMP1](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(1).JPG)
 
@@ -114,11 +114,11 @@
 
 　終わったらSD-CARDを抜き、Windowsパソコン等で内容を確認すると「ROM60A.CAS」と「ROM60B.CAS」という二つのファイルが作成されているはずです。
 
-　「ROM60A.CAS」「ROM60B.CAS」ともバイナリのダンプファイルですので拡張子を「.bin」に変更しておいてください。
+　「ROM60A.CAS」「ROM60B.CAS」とも拡張子を「.bin」に変更します。
 
-　「ROM60A.bin」は0000h～3FFFhまでのBASIC-ROM全体になります。EMULATOR等に使ってください。
+　「ROM60A.bin」はBASIC-ROM全体(0000h～3FFFh)のダンプファイルです。EMULATOR等に使えます。
 
-　「ROM60B.bin」は0000h～1FFFhまでのBASIC-ROM前半でこちらにパッチを当て挿し替えることになります。
+　「ROM60B.bin」はBASIC-ROM前半(0000h～1FFFh)のダンプファイルでこちらにパッチを当て挿し替えることになります。
 
 ### BASIC-ROMへのパッチあて
 　以下のアドレスを修正します。
@@ -130,7 +130,8 @@
 |1AB8|C5 D5 E5|C3 18 58|
 |1ACC|C5 D5 E5|C3 1B 58|
 |1B06|C5 D5 E5|C3 1E 58|
-　出来上がったバイナリを27256等に焼いて本体内ICソケットに差し替えても良いのですが、できれば27512等にオリジナルバイナリを前半、パッチ済みバイナリを後半において焼き、スイッチで切り替えられるようにすると便利です。
+
+　出来上がったバイナリを27128等に焼いて本体内ICソケットに差し替えても良いのですが、できれば27512等にオリジナルバイナリを前半、パッチ済みバイナリを後半において焼き、スイッチで切り替えられるようにすると便利です。
 
 ![ROM_DUMP5](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(5).JPG)
 
