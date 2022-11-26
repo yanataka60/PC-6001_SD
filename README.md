@@ -78,12 +78,10 @@
 | ------------ | ------------ | ------------ | ------------ |
 |S1|ジャンパー又は3Pスライドスイッチ|1|秋月電子通商 SS12D01G4など(注1)|
 |S2|3Pスライドスイッチ|1|秋月電子通商 SS12D01G4など|
-|U1|27128又は27256相当品|1|(注2)|
+|U1|27128又は27256相当品|1|28C256は不可、29C256は可|
 |U2|基板用リードフレーム又は細ピンヘッダ|12Pinx2|秋月電子通商 SS2.54-6SN、PHA-1x40SGなど|
 
-　　　注1)27128を使うときはHigh(5V)に固定してください。
-
-　　　注2)28C256はピン配列が異なるので使えません。29C256は使えます。
+　　　注1)27128を使うときはHigh(5V)に固定。
 
 ## ROMへの書込み
 　Z80フォルダ内のEXT_ROM.binをROMライター(TL866II Plus等)を使って2764又は28C64に書き込みます。
@@ -102,7 +100,17 @@
 
 　画面に「PC-6001_SD Launcher」と表示されるので、STOPキー又は「1」コマンド、「B」コマンドでBASICを起動します。
 
+![ROM_DUMP](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP.JPG)
+
 　入力待ちになったら「EXEC &H4012[CR]」と入力するとBASIC-ROMの内容をSD-CARDに保存するプログラムが実行されます。
+
+![ROM_DUMP1](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(1).JPG)
+
+![ROM_DUMP2](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(2).JPG)
+
+![ROM_DUMP3](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(3).JPG)
+
+![ROM_DUMP4](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(4).JPG)
 
 　終わったらSD-CARDを抜き、Windowsパソコン等で内容を確認すると「ROM60A.CAS」と「ROM60B.CAS」という二つのファイルが作成されているはずです。
 
@@ -123,6 +131,12 @@
 |1ACC|C5 D5 E5|C3 1B 58|
 |1B06|C5 D5 E5|C3 1E 58|
 　出来上がったバイナリを27256等に焼いて本体内ICソケットに差し替えても良いのですが、できれば27512等にオリジナルバイナリを前半、パッチ済みバイナリを後半において焼き、スイッチで切り替えられるようにすると便利です。
+
+![ROM_DUMP5](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(5).JPG)
+
+![ROM_DUMP6](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_DUMP(6).JPG)
+
+
 
 ## 接続
 　カートリッジスロットに挿入します。
