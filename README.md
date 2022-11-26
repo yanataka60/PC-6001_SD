@@ -20,19 +20,22 @@
 　BASIC-ROMのCMT関連ルーチンにパッチを当てたROMに差し替えることでSD-CARDへのアクセスを実現していますのでBASIC-ROMのCMT関連ルーチンをコールせず独自にCMTからLOADするソフト（ロードランナー等）は対応できないので途中で止まります。
 
 ## 回路図
-　KiCadフォルダ内のPC-6001_SD.pdfを参照してください。
+### PC-6001_SD基板
+　KiCadフォルダ/PC-6001_SD内のPC-6001_SD.pdfを参照してください。
 
 [回路図](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD/PC-6001_SD.pdf)
 
 ![PC-6001_SD](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/PC-6001_SD/PC-6001_SD.jpg)
 
-　BASIC-ROM挿し替え用基板です。KiCadフォルダ内のPC-6001_SD.pdfを参照してください。
+### BASIC-ROM挿し替え用基板
+　KiCadフォルダ/ROM_SOCKET内のROM_SOCKET.pdfを参照してください。
 
 [回路図](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/ROM_SOCKET/ROM_SOCKET.pdf)
 
 ![PC-6001_SD](https://github.com/yanataka60/PC-6001_SD/blob/main/Kicad/ROM_SOCKET/ROM_SOCKET.jpg)
 
 ## 部品
+### PC-6001_SD基板
 |番号|品名|数量|備考|
 | ------------ | ------------ | ------------ | ------------ |
 ||J2、J3のいずれか(注1)|||
@@ -40,11 +43,13 @@
 |J3|MicroSD Card Adapter|1|Arduino等に使われる5V電源に対応したもの (注4)|
 |U1|74LS04|1||
 |U2|74LS30|1||
+|U3|74LS32|1||
 |U4|8255|1||
 |U5|2764/28C64相当品|1||
-|U6|Arduino_Pro_Mini_5V|1|(注3)|
-|C1 C2 C4 C5|積層セラミックコンデンサ 0.1uF|4||
-|C6|電解コンデンサ 16v100uF|1||
+|U6|SRAM 62256相当品|1||
+|U7|Arduino_Pro_Mini_5V|1|(注3)|
+|C1 C2 C3 C4 C5 C6|積層セラミックコンデンサ 0.1uF|6||
+|C7|電解コンデンサ 16v100uF|1||
 
 　　　注1)J2又はJ3のどちらかを選択して取り付けてください。
 
@@ -60,7 +65,7 @@
 
 ハンダ付けに自信のない方はJ2の秋月電子通商　AE-microSD-LLCNVをお使いください。AE-microSD-LLCNVならパワーLED、アクセスLEDが付いています。
 
-![MicroSD Card Adapter1](https://github.com/yanataka60/PC-6001mk2_SD/blob/main/JPEG/MicroSD%20Card%20Adapter.JPG)
+![MicroSD Card Adapter1](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/MicroSD%20Card%20Adapter.JPG)
 
 ![MicroSD Card Adapter2](https://github.com/yanataka60/PC-6001mk2_SD/blob/main/JPEG/MicroSD%20Card%20Adapter2.JPG)
 
