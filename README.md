@@ -153,7 +153,7 @@
 
 　3PトグルスイッチによりCMTとSDを切り替えられるようにします。
 
-　3PトグルスイッチはRS-232C用のパネルを使えばちょうどいいです。
+　3PトグルスイッチはRS-232C用のパネルに穴を開けて取り付けるのがいいと思います。
 
 ![ROM_SOCKET4](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/ROM_SOCKET(4).JPG)
 
