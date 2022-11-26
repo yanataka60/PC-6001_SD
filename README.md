@@ -166,13 +166,13 @@
 ## 接続
 　カートリッジスロットに挿入します。
 
-![cartridge](https://github.com/yanataka60/PC-6001mk2_SD/blob/main/JPEG/cartridge.jpg)
+![cartridge](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/PC-6001_SD(3).JPG)
 
 　カートリッジスロットへの抜き差しに基板のみでは不便です。
 
 　STLフォルダに基板を載せられるトレイの3Dデータを置いたので出力して使うと便利です。
 
-![Tray](https://github.com/yanataka60/PC-6001mk2_SD/blob/main/JPEG/TRAY.JPG)
+![Tray](https://github.com/yanataka60/PC-6001_SD/blob/main/JPEG/TRAY.JPG)
 
 　PC-6601、PC-6601SRはドライブ数切替スイッチは0として使ってください。
 
