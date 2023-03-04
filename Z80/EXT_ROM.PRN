@@ -60,12 +60,12 @@
                       	
   4002  1640          			DW		INIT			;POWER ONで8255を初期化、Luncher起動
                       	
-  4004  C32346        			JP		LOADINI
-  4007  C38943        			JP		LOAD1BYTE
-  400A  C3EA45        			JP		SAVEINI
-  400D  C30B46        			JP		SAVE1BYTE
-  4010  C31D46        			JP		SAVEEND
-  4013  C34346        			JP		MON_SAVE
+  4004  C33146        			JP		LOADINI
+  4007  C39743        			JP		LOAD1BYTE
+  400A  C3F845        			JP		SAVEINI
+  400D  C31946        			JP		SAVE1BYTE
+  4010  C32B46        			JP		SAVEEND
+  4013  C35146        			JP		MON_SAVE
                       	
                       	;**** 8255初期化 ****
                       	;PORTC下位BITをOUTPUT、上位BITをINPUT、PORTBをINPUT、PORTAをOUTPUT
@@ -101,17 +101,17 @@
   4049  FE4C          			CP		'L'
   404B  CA2D42        			JP		Z,MONLOAD		;Lコマンド
                       	
-  404E  217744        			LD		HL,MSG_CMD1
+  404E  218544        			LD		HL,MSG_CMD1
   4051  CDCF30        			CALL	MSGOUT			;コマンドエラー5行分出力
-  4054  218944        			LD		HL,MSG_CMD2
+  4054  219744        			LD		HL,MSG_CMD2
   4057  CDCF30        			CALL	MSGOUT
-  405A  21AB44        			LD		HL,MSG_CMD3
+  405A  21B944        			LD		HL,MSG_CMD3
   405D  CDCF30        			CALL	MSGOUT
-  4060  21CD44        			LD		HL,MSG_CMD4
+  4060  21DB44        			LD		HL,MSG_CMD4
   4063  CDCF30        			CALL	MSGOUT
-  4066  21E444        			LD		HL,MSG_CMD5
+  4066  21F244        			LD		HL,MSG_CMD5
   4069  CDCF30        			CALL	MSGOUT
-  406C  21FA44        			LD		HL,MSG_CMD6
+  406C  210845        			LD		HL,MSG_CMD6
   406F  CDCF30        			CALL	MSGOUT
   4072  18B7          			JR		CMD1
                       	
@@ -162,23 +162,23 @@
                       	
   40CA  3EC3          	SDCHG3:	LD		A,0C3H				;その他SD対応パッチあて
   40CC  32611A        			LD		(1A61H),A
-  40CF  212346        			LD		HL,LOADINI
+  40CF  213146        			LD		HL,LOADINI
   40D2  22621A        			LD		(1A62H),HL
   40D5  3EC3          			LD		A,0C3H
   40D7  32701A        			LD		(1A70H),A
-  40DA  218943        			LD		HL,LOAD1BYTE
+  40DA  219743        			LD		HL,LOAD1BYTE
   40DD  22711A        			LD		(1A71H),HL
   40E0  3EC3          			LD		A,0C3H
   40E2  32B81A        			LD		(1AB8H),A
-  40E5  21EA45        			LD		HL,SAVEINI
+  40E5  21F845        			LD		HL,SAVEINI
   40E8  22B91A        			LD		(1AB9H),HL
   40EB  3EC3          			LD		A,0C3H
   40ED  32CC1A        			LD		(1ACCH),A
-  40F0  210B46        			LD		HL,SAVE1BYTE
+  40F0  211946        			LD		HL,SAVE1BYTE
   40F3  22CD1A        			LD		(1ACDH),HL
   40F6  3EC3          			LD		A,0C3H
   40F8  32061B        			LD		(1B06H),A
-  40FB  211D46        			LD		HL,SAVEEND
+  40FB  212B46        			LD		HL,SAVEEND
   40FE  22071B        			LD		(1B07H),HL
   4101  C9            			RET
                       	
@@ -270,13 +270,13 @@
   418B                	STLT:
   418B  F3            			DI
   418C  23            			INC		HL
-  418D  CDAC43        			CALL	STFN              ;検索文字列を送信
+  418D  CDBA43        			CALL	STFN              ;検索文字列を送信
   4190  EB            			EX		DE,HL
-  4191  21BB43        			LD		HL,DEFDIR         ;行頭に'*L 'を付けることでカーソルを移動させリターンで実行できるように
+  4191  21C943        			LD		HL,DEFDIR         ;行頭に'*L 'を付けることでカーソルを移動させリターンで実行できるように
   4194  010300        			LD		BC,DEND-DEFDIR
   4197  CDA141        			CALL	DIRLIST           ;DIRLIST本体をコール
   419A  A7            			AND		A                 ;00以外ならERROR
-  419B  C43C44        			CALL	NZ,SDERR
+  419B  C44A44        			CALL	NZ,SDERR
                       	;		EI
   419E  C32B40        			JP		CMD1
                       	
@@ -285,7 +285,7 @@
                       	;****              戻り値 A=エラーコード ****
   41A1                	DIRLIST:
   41A1  3E61          			LD		A,61H             ;DIRLISTコマンド61Hを送信
-  41A3  CDBE43        			CALL	STCD              ;コマンドコード送信
+  41A3  CDCC43        			CALL	STCD              ;コマンドコード送信
   41A6  A7            			AND		A                 ;00以外ならERROR
   41A7  C22C42        			JP		NZ,DLRET
                       			
@@ -344,7 +344,7 @@
   4200  182A          			JR		DLRET
                       	
   4202  E5            	DL5:	PUSH	HL
-  4203  21B845        			LD		HL,MSG_KEY1       ;HIT ANT KEY表示
+  4203  21C645        			LD		HL,MSG_KEY1       ;HIT ANT KEY表示
   4206  CDCF30        			CALL	MSGOUT
   4209  CD3927        			CALL	MONCLF
   420C  E1            			POP		HL
@@ -368,31 +368,31 @@
                       	;************ Lコマンド p6t LOAD *************************
   422D                	MONLOAD:
                       	;		DI
-  422D  CDF443        			CALL	P6CHK
+  422D  CD0244        			CALL	P6CHK
   4230  FE01          			CP		01H
-  4232  CAFB42        			JP		Z,P6LOAD
+  4232  CAFD42        			JP		Z,P6LOAD
   4235  3E62          			LD		A,62H				;p6t LOAD コマンド62Hを送信
-  4237  CDC543        			CALL	STCMD
+  4237  CDD343        			CALL	STCMD
   423A  C22B40        			JP		NZ,CMD1
                       			
                       	
   423D  CD2D41        			CALL	RCVBYTE				;p6t情報読み出し正常ステータス受信
   4240  A7            			AND		A
   4241  2809          			JR		Z,ML0
-  4243  217345        			LD		HL,MSG_F7			;p6tファイルではない
+  4243  218145        			LD		HL,MSG_F7			;p6tファイルではない
   4246  CDCF30        			CALL	MSGOUT
   4249  C32B40        			JP		CMD1
                       	
   424C  CD2D41        	ML0:	CALL	RCVBYTE				;MODE受信
   424F  A7            			AND		A
   4250  2009          			JR		NZ,ML00
-  4252  219D45        			LD		HL,MSG_F9			;MODE0は異常値
+  4252  21AB45        			LD		HL,MSG_F9			;MODE0は異常値
   4255  CDCF30        			CALL	MSGOUT
   4258  C32B40        			JP		CMD1
                       	
   425B  FE05          	ML00:	CP		05H
   425D  3809          			JR		C,ML1
-  425F  218345        			LD		HL,MSG_F8			;MODE5以上は実行不可
+  425F  219145        			LD		HL,MSG_F8			;MODE5以上は実行不可
   4262  CDCF30        			CALL	MSGOUT
   4265  C32B40        			JP		CMD1
                       			
@@ -453,401 +453,408 @@
   42BF                	PG_SEL:
   42BF  486F77204D616E			DB		'How Many Pages?(1-4)',00H
   42D4                	AS_SEL:
-  42D4  4175746F205275			DB		'Auto Run?(y/n)',00H
-  42E3                	MS_SAVE
-  42E3  536176696E6720			DB		'Saving ',00H
-  42EB                	ATSTR:
-  42EB  434C4F41440D52			DB		'CLOAD',0DH,'RUN',0DH
-  42F5                	ATSTR_END:
-  42F5                	ATSTR2:
-  42F5  434C4F41440D  			DB		'CLOAD',0DH
-  42FB                	ATSTR2_END:
+  42D4  4175746F205275			DB		'Auto Run?(y/c/n)',00H
+  42E5                	MS_SAVE
+  42E5  536176696E6720			DB		'Saving ',00H
+  42ED                	ATSTR:
+  42ED  434C4F41440D52			DB		'CLOAD',0DH,'RUN',0DH
+  42F7                	ATSTR_END:
+  42F7                	ATSTR2:
+  42F7  434C4F41440D  			DB		'CLOAD',0DH
+  42FD                	ATSTR2_END:
                       	
                       	;***** P6 LOAD *****************
-  42FB                	P6LOAD:
-  42FB  3E63          			LD		A,63H				;p6 LOAD コマンド63Hを送信
-  42FD  CDC543        			CALL	STCMD
-  4300  C22B40        			JP		NZ,CMD1
-  4303  CD3927        	PL2:	CALL	MONCLF
-  4306  21BF42        			LD		HL,PG_SEL			;PAGE選択表示
-  4309  CDCF30        			CALL	MSGOUT
-  430C  CDC40F        			CALL	KEYIN				;1文字入力(1-4)
-  430F  CD7510        			CALL	CONOUT
-  4312  FE31          			CP		'1'
-  4314  38ED          			JR		C,PL2
-  4316  FE35          			CP		'5'
-  4318  30E9          			JR		NC,PL2
+  42FD                	P6LOAD:
+  42FD  3E63          			LD		A,63H				;p6 LOAD コマンド63Hを送信
+  42FF  CDD343        			CALL	STCMD
+  4302  C22B40        			JP		NZ,CMD1
+  4305  CD3927        	PL2:	CALL	MONCLF
+  4308  21BF42        			LD		HL,PG_SEL			;PAGE選択表示
+  430B  CDCF30        			CALL	MSGOUT
+  430E  CDC40F        			CALL	KEYIN				;1文字入力(1-4)
+  4311  CD7510        			CALL	CONOUT
+  4314  FE31          			CP		'1'
+  4316  38ED          			JR		C,PL2
+  4318  FE35          			CP		'5'
+  431A  30E9          			JR		NC,PL2
                       	
-  431A  21B9FB        			LD		HL,LBUF				;AUTOSTART文字列格納場所
-  431D  228DFB        			LD		(ASTRSTRG),HL
-  4320  77            			LD		(HL),A				;PAGE書き込み
-  4321  CD3927        			CALL	MONCLF
-  4324  23            			INC		HL
-  4325  3E0D          			LD		A,0DH
-  4327  77            			LD		(HL),A
-  4328  23            			INC		HL
+  431C  21B9FB        			LD		HL,LBUF				;AUTOSTART文字列格納場所
+  431F  228DFB        			LD		(ASTRSTRG),HL
+  4322  77            			LD		(HL),A				;PAGE書き込み
+  4323  CD3927        			CALL	MONCLF
+  4326  23            			INC		HL
+  4327  3E0D          			LD		A,0DH
+  4329  77            			LD		(HL),A
+  432A  23            			INC		HL
                       	
-  4329  E5            			PUSH	HL
-  432A  21D442        			LD		HL,AS_SEL			;AUTO START選択表示
-  432D  CDCF30        			CALL	MSGOUT
-  4330  CDC40F        			CALL	KEYIN				;Y:AUTO START Y以外:選択したファイルをセットしてBASIC起動 
-  4333  CDEF0B        			CALL	AZLCNV
-  4336  E1            			POP		HL
-  4337  CD7510        			CALL	CONOUT
-  433A  FE59          			CP		'Y'
-  433C  2804          			JR		Z,P67
-  433E  3E08          			LD		A,8					;AUTOSTART文字列数
-  4340  1802          			JR		P68
-  4342  3E0C          	P67:	LD		A,12				;AUTOSTART文字列数
-  4344  3232FA        	P68:	LD		(ASTRLEN),A
+  432B  E5            			PUSH	HL
+  432C  21D442        			LD		HL,AS_SEL			;AUTO START選択表示
+  432F  CDCF30        			CALL	MSGOUT
+  4332  CDC40F        			CALL	KEYIN				;Y:AUTO START Y以外:選択したファイルをセットしてBASIC起動 
+  4335  CDEF0B        			CALL	AZLCNV
+  4338  E1            			POP		HL
+  4339  CD7510        			CALL	CONOUT
+  433C  FE59          			CP		'Y'
+  433E  280C          			JR		Z,P67
+  4340  FE43          			CP		'C'
+  4342  2804          			JR		Z,P671
+  4344  3E02          			LD		A,2					;AUTOSTART文字列数
+  4346  1806          			JR		P68
+  4348  3E08          	P671:	LD		A,8
+  434A  1802          			JR		P68
+  434C  3E0C          	P67:	LD		A,12				;AUTOSTART文字列数
+  434E  3232FA        	P68:	LD		(ASTRLEN),A
                       	
-  4347  3A33FA        			LD		A,(MODEL)
-  434A  A7            			AND		A
-  434B  280B          			JR		Z,P64
+  4351  3A33FA        			LD		A,(MODEL)
+  4354  A7            			AND		A
+  4355  280B          			JR		Z,P64
                       	
-  434D  060D          			LD		B,13
-  434F  112041        			LD		DE,MODE12
-  4352  1A            	P63:	LD		A,(DE)
-  4353  77            			LD		(HL),A
-  4354  23            			INC		HL
-  4355  13            			INC		DE
-  4356  10FA          			DJNZ	P63
+  4357  060D          			LD		B,13
+  4359  112041        			LD		DE,MODE12
+  435C  1A            	P63:	LD		A,(DE)
+  435D  77            			LD		(HL),A
+  435E  23            			INC		HL
+  435F  13            			INC		DE
+  4360  10FA          			DJNZ	P63
                       	
-  4358  3A32FA        	P64:	LD		A,(ASTRLEN)
-  435B  FE08          			CP		8
-  435D  2807          			JR		Z,P66
-  435F  060A          			LD		B,ATSTR_END-ATSTR
-  4361  11EB42        			LD		DE,ATSTR
-  4364  1805          			JR		P65
-  4366  0606          	P66:	LD		B,ATSTR2_END-ATSTR2
-  4368  11F542        			LD		DE,ATSTR2
-  436B  1A            	P65:	LD		A,(DE)
-  436C  77            			LD		(HL),A
-  436D  23            			INC		HL
-  436E  13            			INC		DE
-  436F  10FA          			DJNZ	P65
-  4371  3A33FA        			LD		A,(MODEL)
-  4374  A7            			AND		A
-  4375  CABB42        			JP		Z,DCLR
+  4362  3A32FA        	P64:	LD		A,(ASTRLEN)
                       	
-  4378  3A32FA        			LD		A,(ASTRLEN)
-  437B  C60D          			ADD		A,13
-  437D  3232FA        			LD		(ASTRLEN),A
+  4365  FE08          			CP		8
+  4367  280B          			JR		Z,P66
+  4369  FE02          			CP		2
+  436B  2812          			JR		Z,P661
+  436D  060A          			LD		B,ATSTR_END-ATSTR
+  436F  11ED42        			LD		DE,ATSTR
+  4372  1805          			JR		P65
+  4374  0606          	P66:	LD		B,ATSTR2_END-ATSTR2
+  4376  11F742        			LD		DE,ATSTR2
+  4379  1A            	P65:	LD		A,(DE)
+  437A  77            			LD		(HL),A
+  437B  23            			INC		HL
+  437C  13            			INC		DE
+  437D  10FA          			DJNZ	P65
+  437F  3A33FA        	P661:	LD		A,(MODEL)
+  4382  A7            			AND		A
+  4383  CABB42        			JP		Z,DCLR
                       	
-  4380  CDBA40        			CALL	SDCHG1				;SD用パッチあてルーチンへ
-  4383  CDCA40        			CALL	SDCHG3
-  4386  C3BB42        			JP		DCLR
+  4386  3A32FA        			LD		A,(ASTRLEN)
+  4389  C60D          			ADD		A,13
+  438B  3232FA        			LD		(ASTRLEN),A
+                      	
+  438E  CDBA40        			CALL	SDCHG1				;SD用パッチあてルーチンへ
+  4391  CDCA40        			CALL	SDCHG3
+  4394  C3BB42        			JP		DCLR
                       			
                       	;********** LOAD ONE BYTE FROM SD *********
-  4389                	LOAD1BYTE:
-  4389  F3            			DI
-  438A  C5            			PUSH	BC
-  438B  D5            			PUSH	DE
-  438C  E5            			PUSH	HL
-  438D  3A18FA        			LD		A,(STOPFLG)
-  4390  FE00          			CP		00H
-  4392  200F          			JR		NZ,L1B1
-  4394  3E64          			LD		A,64H			;LOAD1BYTE コマンド64Hを送信
-  4396  CDBE43        			CALL	STCD
-  4399  CD2D41        			CALL	RCVBYTE			;1Byteのみ受信
-  439C  47            			LD		B,A
-  439D  AF            			XOR		A				;Z FLGをクリア
-  439E  78            			LD		A,B
-  439F  E1            			POP		HL
-  43A0  D1            			POP		DE
-  43A1  C1            			POP		BC
-  43A2  C9            			RET
-  43A3  E1            	L1B1:	POP		HL
-  43A4  D1            			POP		DE
-  43A5  C1            			POP		BC
-  43A6  CDCE34        			CALL	34CEH
+  4397                	LOAD1BYTE:
+  4397  F3            			DI
+  4398  C5            			PUSH	BC
+  4399  D5            			PUSH	DE
+  439A  E5            			PUSH	HL
+  439B  3A18FA        			LD		A,(STOPFLG)
+  439E  FE00          			CP		00H
+  43A0  200F          			JR		NZ,L1B1
+  43A2  3E64          			LD		A,64H			;LOAD1BYTE コマンド64Hを送信
+  43A4  CDCC43        			CALL	STCD
+  43A7  CD2D41        			CALL	RCVBYTE			;1Byteのみ受信
+  43AA  47            			LD		B,A
+  43AB  AF            			XOR		A				;Z FLGをクリア
+  43AC  78            			LD		A,B
+  43AD  E1            			POP		HL
+  43AE  D1            			POP		DE
+  43AF  C1            			POP		BC
+  43B0  C9            			RET
+  43B1  E1            	L1B1:	POP		HL
+  43B2  D1            			POP		DE
+  43B3  C1            			POP		BC
+  43B4  CDCE34        			CALL	34CEH
                       	;		EI
-  43A9  C34D27        			JP		274DH
+  43B7  C34D27        			JP		274DH
                       	
                       	;****** FILE NAMEが取得できるまでスペース、ダブルコーテーションを読み飛ばし (IN:HL コマンド文字の次の文字 OUT:HL ファイルネームの先頭)*********
-  43AC  F5            	STFN:	PUSH	AF
-  43AD  7E            	STFN1:	LD		A,(HL)
-  43AE  FE20          			CP		20H
-  43B0  2804          			JR		Z,STFN2
-  43B2  FE22          			CP		22H
-  43B4  2003          			JR		NZ,STFN3
-  43B6  23            	STFN2:	INC		HL               ;ファイルネームまでスペース読み飛ばし
-  43B7  18F4          			JR		STFN1
-  43B9  F1            	STFN3:	POP		AF
-  43BA  C9            			RET
+  43BA  F5            	STFN:	PUSH	AF
+  43BB  7E            	STFN1:	LD		A,(HL)
+  43BC  FE20          			CP		20H
+  43BE  2804          			JR		Z,STFN2
+  43C0  FE22          			CP		22H
+  43C2  2003          			JR		NZ,STFN3
+  43C4  23            	STFN2:	INC		HL               ;ファイルネームまでスペース読み飛ばし
+  43C5  18F4          			JR		STFN1
+  43C7  F1            	STFN3:	POP		AF
+  43C8  C9            			RET
                       	
-  43BB                	DEFDIR:
-  43BB  2A4C20        			DB		'*L '
-  43BE                	DEND:
+  43C9                	DEFDIR:
+  43C9  2A4C20        			DB		'*L '
+  43CC                	DEND:
                       	
                       	;**** コマンド送信 (IN:A コマンドコード)****
-  43BE  CD4041        	STCD:	CALL	SNDBYTE          ;Aレジスタのコマンドコードを送信
-  43C1  CD2D41        			CALL	RCVBYTE          ;状態取得(00H=OK)
-  43C4  C9            			RET
+  43CC  CD4041        	STCD:	CALL	SNDBYTE          ;Aレジスタのコマンドコードを送信
+  43CF  CD2D41        			CALL	RCVBYTE          ;状態取得(00H=OK)
+  43D2  C9            			RET
                       	
                       	;**** コマンド、ファイル名送信 (IN:A コマンドコード HL:ファイルネームの先頭)****
-  43C5  23            	STCMD:	INC		HL
-  43C6  CDAC43        			CALL	STFN             ;空白除去
-  43C9  E5            			PUSH	HL
-  43CA  CDBE43        			CALL	STCD             ;コマンドコード送信
-  43CD  E1            			POP		HL
-  43CE  A7            			AND		A                ;00以外ならERROR
-  43CF  C23C44        			JP		NZ,SDERR
-  43D2  CDDA43        			CALL	STFS             ;ファイルネーム送信
-  43D5  A7            			AND		A                ;00以外ならERROR
-  43D6  C23C44        			JP		NZ,SDERR
-  43D9  C9            			RET
+  43D3  23            	STCMD:	INC		HL
+  43D4  CDBA43        			CALL	STFN             ;空白除去
+  43D7  E5            			PUSH	HL
+  43D8  CDCC43        			CALL	STCD             ;コマンドコード送信
+  43DB  E1            			POP		HL
+  43DC  A7            			AND		A                ;00以外ならERROR
+  43DD  C24A44        			JP		NZ,SDERR
+  43E0  CDE843        			CALL	STFS             ;ファイルネーム送信
+  43E3  A7            			AND		A                ;00以外ならERROR
+  43E4  C24A44        			JP		NZ,SDERR
+  43E7  C9            			RET
                       	
                       	;**** ファイルネーム送信(IN:HL ファイルネームの先頭) ******
-  43DA  0620          	STFS:	LD		B,20H
-  43DC  7E            	STFS1:	LD		A,(HL)           ;FNAME送信
-  43DD  FE22          			CP		22H
-  43DF  2003          			JR		NZ,STFS2
-  43E1  23            			INC		HL
-  43E2  18F8          			JR		STFS1
-  43E4  CD4041        	STFS2:	CALL	SNDBYTE
-  43E7  23            			INC		HL
-  43E8  05            			DEC		B
-  43E9  20F1          			JR		NZ,STFS1
-  43EB  3E0D          			LD		A,0DH
-  43ED  CD4041        			CALL	SNDBYTE
-  43F0  CD2D41        			CALL	RCVBYTE          ;状態取得(00H=OK)
-  43F3  C9            			RET
+  43E8  0620          	STFS:	LD		B,20H
+  43EA  7E            	STFS1:	LD		A,(HL)           ;FNAME送信
+  43EB  FE22          			CP		22H
+  43ED  2003          			JR		NZ,STFS2
+  43EF  23            			INC		HL
+  43F0  18F8          			JR		STFS1
+  43F2  CD4041        	STFS2:	CALL	SNDBYTE
+  43F5  23            			INC		HL
+  43F6  05            			DEC		B
+  43F7  20F1          			JR		NZ,STFS1
+  43F9  3E0D          			LD		A,0DH
+  43FB  CD4041        			CALL	SNDBYTE
+  43FE  CD2D41        			CALL	RCVBYTE          ;状態取得(00H=OK)
+  4401  C9            			RET
                       	
                       	;**** .p6 or cas check ******
-  43F4  E5            	P6CHK:	PUSH	HL
-  43F5  23            			INC		HL
-  43F6  CDAC43        			CALL	STFN             ;空白除去
-  43F9  0620          			LD		B,20H
-  43FB  7E            	P6CHK1:	LD		A,(HL)
-  43FC  A7            			AND		A
-  43FD  2804          			JR		Z,P6CHK2
-  43FF  23            			INC		HL
-  4400  05            			DEC		B
-  4401  20F8          			JR		NZ,P6CHK1
-  4403  2B            	P6CHK2:	DEC		HL
-  4404  7E            			LD		A,(HL)
-  4405  FE36          			CP		'6'
-  4407  2016          			JR		NZ,P6CHK5
-  4409  2B            			DEC		HL
-  440A  7E            			LD		A,(HL)
-  440B  CDEF0B        			CALL	AZLCNV
-  440E  FE50          			CP		'P'
-  4410  200A          			JR		NZ,P6CHK3
-  4412  2B            			DEC		HL
-  4413  7E            			LD		A,(HL)
-  4414  FE2E          			CP		'.'
-  4416  2004          			JR		NZ,P6CHK3
-  4418  3E01          			LD		A,01H
-  441A  1801          			JR		P6CHK4
-  441C  AF            	P6CHK3:	XOR		A
-  441D  E1            	P6CHK4:	POP		HL
-  441E  C9            			RET
+  4402  E5            	P6CHK:	PUSH	HL
+  4403  23            			INC		HL
+  4404  CDBA43        			CALL	STFN             ;空白除去
+  4407  0620          			LD		B,20H
+  4409  7E            	P6CHK1:	LD		A,(HL)
+  440A  A7            			AND		A
+  440B  2804          			JR		Z,P6CHK2
+  440D  23            			INC		HL
+  440E  05            			DEC		B
+  440F  20F8          			JR		NZ,P6CHK1
+  4411  2B            	P6CHK2:	DEC		HL
+  4412  7E            			LD		A,(HL)
+  4413  FE36          			CP		'6'
+  4415  2016          			JR		NZ,P6CHK5
+  4417  2B            			DEC		HL
+  4418  7E            			LD		A,(HL)
+  4419  CDEF0B        			CALL	AZLCNV
+  441C  FE50          			CP		'P'
+  441E  200A          			JR		NZ,P6CHK3
+  4420  2B            			DEC		HL
+  4421  7E            			LD		A,(HL)
+  4422  FE2E          			CP		'.'
+  4424  2004          			JR		NZ,P6CHK3
+  4426  3E01          			LD		A,01H
+  4428  1801          			JR		P6CHK4
+  442A  AF            	P6CHK3:	XOR		A
+  442B  E1            	P6CHK4:	POP		HL
+  442C  C9            			RET
                       			
-  441F  CDEF0B        	P6CHK5:	CALL	AZLCNV
-  4422  FE53          			CP		'S'
-  4424  20F6          			JR		NZ,P6CHK3
-  4426  2B            			DEC		HL
-  4427  7E            			LD		A,(HL)
-  4428  CDEF0B        			CALL	AZLCNV
-  442B  FE41          			CP		'A'
-  442D  20ED          			JR		NZ,P6CHK3
-  442F  2B            			DEC		HL
-  4430  7E            			LD		A,(HL)
-  4431  CDEF0B        			CALL	AZLCNV
-  4434  FE43          			CP		'C'
-  4436  20E4          			JR		NZ,P6CHK3
-  4438  3E01          			LD		A,01H
-  443A  18E1          			JR		P6CHK4
+  442D  CDEF0B        	P6CHK5:	CALL	AZLCNV
+  4430  FE53          			CP		'S'
+  4432  20F6          			JR		NZ,P6CHK3
+  4434  2B            			DEC		HL
+  4435  7E            			LD		A,(HL)
+  4436  CDEF0B        			CALL	AZLCNV
+  4439  FE41          			CP		'A'
+  443B  20ED          			JR		NZ,P6CHK3
+  443D  2B            			DEC		HL
+  443E  7E            			LD		A,(HL)
+  443F  CDEF0B        			CALL	AZLCNV
+  4442  FE43          			CP		'C'
+  4444  20E4          			JR		NZ,P6CHK3
+  4446  3E01          			LD		A,01H
+  4448  18E1          			JR		P6CHK4
                       	
                       	;************** エラー内容表示 *****************************
-  443C                	SDERR:
-  443C  F5            			PUSH	AF
-  443D  FEF0          			CP		0F0H
-  443F  2005          			JR		NZ,ERR3
-  4441  211045        			LD		HL,MSG_F0        ;SD-CARD INITIALIZE ERROR
-  4444  1821          			JR		ERRMSG
-  4446  FEF1          	ERR3:	CP		0F1H
-  4448  2005          			JR		NZ,ERR4
-  444A  212945        			LD		HL,MSG_F1        ;NOT FIND FILE
-  444D  1818          			JR		ERRMSG
-  444F  FEF3          	ERR4:	CP		0F3H
-  4451  2005          			JR		NZ,ERR5
-  4453  214745        			LD		HL,MSG_F3        ;FILE EXIST
-  4456  180F          			JR		ERRMSG
-  4458  FEF6          	ERR5:	CP		0F6H
-  445A  2005          			JR		NZ,ERR99
-  445C  21D845        			LD		HL,MSG_FNAME     ;PARAMETER FAILED
-  445F  1806          			JR		ERRMSG
-  4461  CD7A39        	ERR99:	CALL	MONBHX
-  4464  21B145        			LD		HL,MSG99         ;その他ERROR
-  4467  CDCF30        	ERRMSG:	CALL	MSGOUT
-  446A  CD3927        			CALL	MONCLF
-  446D  CDCD1B        			CALL	DISPBL
-  4470  3E03          			LD		A,03H
-  4472  3218FA        			LD		(STOPFLG),A
-  4475  F1            			POP		AF
-  4476  C9            			RET
+  444A                	SDERR:
+  444A  F5            			PUSH	AF
+  444B  FEF0          			CP		0F0H
+  444D  2005          			JR		NZ,ERR3
+  444F  211E45        			LD		HL,MSG_F0        ;SD-CARD INITIALIZE ERROR
+  4452  1821          			JR		ERRMSG
+  4454  FEF1          	ERR3:	CP		0F1H
+  4456  2005          			JR		NZ,ERR4
+  4458  213745        			LD		HL,MSG_F1        ;NOT FIND FILE
+  445B  1818          			JR		ERRMSG
+  445D  FEF3          	ERR4:	CP		0F3H
+  445F  2005          			JR		NZ,ERR5
+  4461  215545        			LD		HL,MSG_F3        ;FILE EXIST
+  4464  180F          			JR		ERRMSG
+  4466  FEF6          	ERR5:	CP		0F6H
+  4468  2005          			JR		NZ,ERR99
+  446A  21E645        			LD		HL,MSG_FNAME     ;PARAMETER FAILED
+  446D  1806          			JR		ERRMSG
+  446F  CD7A39        	ERR99:	CALL	MONBHX
+  4472  21BF45        			LD		HL,MSG99         ;その他ERROR
+  4475  CDCF30        	ERRMSG:	CALL	MSGOUT
+  4478  CD3927        			CALL	MONCLF
+  447B  CDCD1B        			CALL	DISPBL
+  447E  3E03          			LD		A,03H
+  4480  3218FA        			LD		(STOPFLG),A
+  4483  F1            			POP		AF
+  4484  C9            			RET
                       	
-  4477                	MSG_CMD1:
-  4477  434F4D4D414E44			DB		'COMMAND FAILED!',0DH,0AH,00H
-  4489                	MSG_CMD2:
-  4489  2053544F503A20			DB		' STOP: Return Basic(Not Use SD)',0DH,0AH,00H
-  44AB                	MSG_CMD3:
-  44AB  20422020203A20			DB		' B   : Return Basic(Not Use SD)',0DH,0AH,00H
-  44CD                	MSG_CMD4:
-  44CD  20312020203A20			DB		' 1   : N60 BASIC(SD)',0DH,0AH,00H
-  44E4                	MSG_CMD5:
-  44E4  20462078203A20			DB		' F x : Find SD File',0DH,0AH,00H
-  44FA                	MSG_CMD6:
-  44FA  204C2078203A20			DB		' L x : Load From SD',0DH,0AH,00H
+  4485                	MSG_CMD1:
+  4485  434F4D4D414E44			DB		'COMMAND FAILED!',0DH,0AH,00H
+  4497                	MSG_CMD2:
+  4497  2053544F503A20			DB		' STOP: Return Basic(Not Use SD)',0DH,0AH,00H
+  44B9                	MSG_CMD3:
+  44B9  20422020203A20			DB		' B   : Return Basic(Not Use SD)',0DH,0AH,00H
+  44DB                	MSG_CMD4:
+  44DB  20312020203A20			DB		' 1   : N60 BASIC(SD)',0DH,0AH,00H
+  44F2                	MSG_CMD5:
+  44F2  20462078203A20			DB		' F x : Find SD File',0DH,0AH,00H
+  4508                	MSG_CMD6:
+  4508  204C2078203A20			DB		' L x : Load From SD',0DH,0AH,00H
                       	
-  4510                	MSG_F0:
-  4510  53442D43415244			DB		'SD-CARD INITIALIZE ERROR'
-  4528  00            			DB		00H
-                      			
-  4529                	MSG_F1:
-  4529  4E4F542046494E			DB		'NOT FIND FILE'
+  451E                	MSG_F0:
+  451E  53442D43415244			DB		'SD-CARD INITIALIZE ERROR'
   4536  00            			DB		00H
                       			
-  4537                	MSG_F2:
-  4537  4E4F54204F424A			DB		'NOT OBJECT FILE'
-  4546  00            			DB		00H
+  4537                	MSG_F1:
+  4537  4E4F542046494E			DB		'NOT FIND FILE'
+  4544  00            			DB		00H
                       			
-  4547                	MSG_F3:
-  4547  46494C45204558			DB		'FILE EXIST'
-  4551  00            			DB		00H
+  4545                	MSG_F2:
+  4545  4E4F54204F424A			DB		'NOT OBJECT FILE'
+  4554  00            			DB		00H
                       			
-  4552                	MSG_F5:
-  4552  4E4F2050524F47			DB		'NO PROGRAM!!'
-  455E  00            			DB		00H
+  4555                	MSG_F3:
+  4555  46494C45204558			DB		'FILE EXIST'
+  455F  00            			DB		00H
                       			
-  455F                	MSG_F6:
-  455F  4E4F5420424153			DB		'NOT BASIC PROGRAM'
-  4570  0D0A00        			DB		0DH,0AH,00H
+  4560                	MSG_F5:
+  4560  4E4F2050524F47			DB		'NO PROGRAM!!'
+  456C  00            			DB		00H
+                      			
+  456D                	MSG_F6:
+  456D  4E4F5420424153			DB		'NOT BASIC PROGRAM'
+  457E  0D0A00        			DB		0DH,0AH,00H
                       	
-  4573                	MSG_F7:
-  4573  4E4F5420503654			DB		'NOT P6T FILE?'
-  4580  0D0A00        			DB		0DH,0AH,00H
+  4581                	MSG_F7:
+  4581  4E4F5420503654			DB		'NOT P6T FILE?'
+  458E  0D0A00        			DB		0DH,0AH,00H
                       			
-  4583                	MSG_F8:
-  4583  4D4F444535204D			DB		'MODE5 MODE6 NOT EXECUTE'
-  459A  0D0A00        			DB		0DH,0AH,00H
+  4591                	MSG_F8:
+  4591  4D4F444535204D			DB		'MODE5 MODE6 NOT EXECUTE'
+  45A8  0D0A00        			DB		0DH,0AH,00H
                       			
-  459D                	MSG_F9:
-  459D  4D4F444530204E			DB		'MODE0 NOT EXECUTE'
-  45AE  0D0A00        			DB		0DH,0AH,00H
+  45AB                	MSG_F9:
+  45AB  4D4F444530204E			DB		'MODE0 NOT EXECUTE'
+  45BC  0D0A00        			DB		0DH,0AH,00H
                       			
-  45B1                	MSG99:
-  45B1  204552524F52  			DB		' ERROR'
-  45B7  00            			DB		00H
-                      			
-                      	
-  45B8                	MSG_KEY1:
-  45B8  4E4558543A414E			DB		'NEXT:ANY BACK:B BREAK:UP OR ESC'
-  45D7  00            			DB		00H
-                      	
-  45D8                	MSG_FNAME:
-  45D8  504152414D4554			DB		'PARAMETAR FAILED!'
-  45E9  00            			DB		00H
+  45BF                	MSG99:
+  45BF  204552524F52  			DB		' ERROR'
+  45C5  00            			DB		00H
                       			
                       	
-  45EA                	SAVEINI:
-  45EA  F3            			DI
-  45EB  21E342        			LD		HL,MS_SAVE
-  45EE  CDCF30        			CALL	MSGOUT
-  45F1  CD3927        			CALL	MONCLF
-  45F4  AF            			XOR		A
-  45F5  32D1FE        			LD		(FNAME+6),A
-  45F8  21CAFE        			LD		HL,FNAME-1
-  45FB  3E67          			LD		A,67H            ;コマンド67Hを送信
-  45FD  CDC543        			CALL	STCMD
-  4600  2003          			JR		NZ,SINI1
+  45C6                	MSG_KEY1:
+  45C6  4E4558543A414E			DB		'NEXT:ANY BACK:B BREAK:UP OR ESC'
+  45E5  00            			DB		00H
+                      	
+  45E6                	MSG_FNAME:
+  45E6  504152414D4554			DB		'PARAMETAR FAILED!'
+  45F7  00            			DB		00H
+                      			
+                      	
+  45F8                	SAVEINI:
+  45F8  F3            			DI
+  45F9  21E542        			LD		HL,MS_SAVE
+  45FC  CDCF30        			CALL	MSGOUT
+  45FF  CD3927        			CALL	MONCLF
   4602  AF            			XOR		A
-  4603  1802          			JR		SINI2
-  4605  3E03          	SINI1:	LD		A,03H
-  4607  3218FA        	SINI2:	LD		(STOPFLG),A
+  4603  32D1FE        			LD		(FNAME+6),A
+  4606  21CAFE        			LD		HL,FNAME-1
+  4609  3E67          			LD		A,67H            ;コマンド67Hを送信
+  460B  CDD343        			CALL	STCMD
+  460E  2003          			JR		NZ,SINI1
+  4610  AF            			XOR		A
+  4611  1802          			JR		SINI2
+  4613  3E03          	SINI1:	LD		A,03H
+  4615  3218FA        	SINI2:	LD		(STOPFLG),A
                       	;		EI
-  460A  C9            			RET
+  4618  C9            			RET
                       	
-  460B                	SAVE1BYTE:
-  460B  F3            			DI
-  460C  C5            			PUSH	BC
-  460D  D5            			PUSH	DE
-  460E  E5            			PUSH	HL
-  460F  F5            			PUSH	AF
-  4610  3E68          			LD		A,68H			;SAVE1BYTE コマンド68Hを送信
-  4612  CDBE43        			CALL	STCD
-  4615  F1            			POP		AF
-  4616  CD4041        			CALL	SNDBYTE			;1Byteのみ受信
-  4619  E1            			POP		HL
-  461A  D1            			POP		DE
-  461B  C1            			POP		BC
+  4619                	SAVE1BYTE:
+  4619  F3            			DI
+  461A  C5            			PUSH	BC
+  461B  D5            			PUSH	DE
+  461C  E5            			PUSH	HL
+  461D  F5            			PUSH	AF
+  461E  3E68          			LD		A,68H			;SAVE1BYTE コマンド68Hを送信
+  4620  CDCC43        			CALL	STCD
+  4623  F1            			POP		AF
+  4624  CD4041        			CALL	SNDBYTE			;1Byteのみ受信
+  4627  E1            			POP		HL
+  4628  D1            			POP		DE
+  4629  C1            			POP		BC
                       	;		EI
-  461C  C9            			RET
+  462A  C9            			RET
                       	
-  461D                	SAVEEND:
-  461D  3E69          			LD		A,69H
-  461F  CDBE43        			CALL	STCD
-  4622  C9            			RET
+  462B                	SAVEEND:
+  462B  3E69          			LD		A,69H
+  462D  CDCC43        			CALL	STCD
+  4630  C9            			RET
                       	
-  4623                	LOADINI:
-  4623  F3            			DI
-  4624  AF            			XOR		A
-  4625  32D1FE        			LD		(FNAME+6),A
-  4628  21CBFE        			LD		HL,FNAME
-  462B  7E            			LD		A,(HL)
-  462C  A7            			AND		A
-  462D  C8            			RET		Z
-  462E  2B            			DEC		HL
-  462F  3E63          			LD		A,63H            ;コマンド63Hを送信
-  4631  CDC543        			CALL	STCMD
-  4634  2003          			JR		NZ,LINI1
-  4636  AF            			XOR		A
-  4637  1802          			JR		LINI2
-  4639  3E03          	LINI1:	LD		A,03H
-  463B  3218FA        	LINI2:	LD		(STOPFLG),A
-  463E  AF            			XOR		A
-  463F  32CBFE        			LD		(FNAME),A
+  4631                	LOADINI:
+  4631  F3            			DI
+  4632  AF            			XOR		A
+  4633  32D1FE        			LD		(FNAME+6),A
+  4636  21CBFE        			LD		HL,FNAME
+  4639  7E            			LD		A,(HL)
+  463A  A7            			AND		A
+  463B  C8            			RET		Z
+  463C  2B            			DEC		HL
+  463D  3E63          			LD		A,63H            ;コマンド63Hを送信
+  463F  CDD343        			CALL	STCMD
+  4642  2003          			JR		NZ,LINI1
+  4644  AF            			XOR		A
+  4645  1802          			JR		LINI2
+  4647  3E03          	LINI1:	LD		A,03H
+  4649  3218FA        	LINI2:	LD		(STOPFLG),A
+  464C  AF            			XOR		A
+  464D  32CBFE        			LD		(FNAME),A
                       	;		EI
-  4642  C9            			RET
+  4650  C9            			RET
                       	
-  4643                	MON_SAVE:
-  4643  218646        			LD		HL,STR1
-  4646  11CBFE        			LD		DE,FNAME
-  4649  010700        			LD		BC,0007H
-  464C  EDB0          			LDIR
-  464E  CDEA45        			CALL	SAVEINI
-  4651  210000        			LD		HL,0000H
-  4654  110040        			LD		DE,4000H
-  4657  7E            	MS1:	LD		A,(HL)
-  4658  CD0B46        			CALL	SAVE1BYTE
-  465B  23            			INC		HL
-  465C  1B            			DEC		DE
-  465D  7A            			LD		A,D
-  465E  B3            			OR		E
-  465F  20F6          			JR		NZ,MS1
-  4661  CD1D46        			CALL	SAVEEND
+  4651                	MON_SAVE:
+  4651  219446        			LD		HL,STR1
+  4654  11CBFE        			LD		DE,FNAME
+  4657  010700        			LD		BC,0007H
+  465A  EDB0          			LDIR
+  465C  CDF845        			CALL	SAVEINI
+  465F  210000        			LD		HL,0000H
+  4662  110040        			LD		DE,4000H
+  4665  7E            	MS1:	LD		A,(HL)
+  4666  CD1946        			CALL	SAVE1BYTE
+  4669  23            			INC		HL
+  466A  1B            			DEC		DE
+  466B  7A            			LD		A,D
+  466C  B3            			OR		E
+  466D  20F6          			JR		NZ,MS1
+  466F  CD2B46        			CALL	SAVEEND
                       	
-  4664  218D46        			LD		HL,STR2
-  4667  11CBFE        			LD		DE,FNAME
-  466A  010700        			LD		BC,0007H
-  466D  EDB0          			LDIR
-  466F  CDEA45        			CALL	SAVEINI
-  4672  210000        			LD		HL,0000H
-  4675  110020        			LD		DE,2000H
-  4678  7E            	MS2:	LD		A,(HL)
-  4679  CD0B46        			CALL	SAVE1BYTE
-  467C  23            			INC		HL
-  467D  1B            			DEC		DE
-  467E  7A            			LD		A,D
-  467F  B3            			OR		E
-  4680  20F6          			JR		NZ,MS2
-  4682  CD1D46        			CALL	SAVEEND
-  4685  C9            			RET
+  4672  219B46        			LD		HL,STR2
+  4675  11CBFE        			LD		DE,FNAME
+  4678  010700        			LD		BC,0007H
+  467B  EDB0          			LDIR
+  467D  CDF845        			CALL	SAVEINI
+  4680  210000        			LD		HL,0000H
+  4683  110020        			LD		DE,2000H
+  4686  7E            	MS2:	LD		A,(HL)
+  4687  CD1946        			CALL	SAVE1BYTE
+  468A  23            			INC		HL
+  468B  1B            			DEC		DE
+  468C  7A            			LD		A,D
+  468D  B3            			OR		E
+  468E  20F6          			JR		NZ,MS2
+  4690  CD2B46        			CALL	SAVEEND
+  4693  C9            			RET
                       			
-  4686  524F4D36304100	STR1:	DB		'ROM60A',00H
-  468D  524F4D36304200	STR2:	DB		'ROM60B',00H
+  4694  524F4D36304100	STR1:	DB		'ROM60A',00H
+  469B  524F4D36304200	STR2:	DB		'ROM60B',00H
                       	
-  4694                			END
+  46A2                			END
 

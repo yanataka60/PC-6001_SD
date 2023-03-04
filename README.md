@@ -248,7 +248,7 @@ B[CR]と動作は同じです。
 
 　選択したファイルが「P6T」形式の場合、設定されたPagesで起動したうえで自動実行文字列を実行します。
 
-　選択したファイルが「CAS」形式の場合、「How Many Pages?(1-4)」と聞いてくるので画面数を入力、次に「Auto Run?(y/n)」と聞いてくるので「y」とすれば起動直後にCLOAD[CR]RUN[CR]が実行され、「n」とすればCLOAD[CR]だけが実行されます。
+　選択したファイルが「CAS」形式の場合、「How Many Pages?(1-4)」と聞いてくるので画面数を入力、次に「Auto Run?(y/n)」と聞いてくるので「y」とすれば最後に「Auto Run?(y/c/n)」と聞いてくるので「y」とすれば起動直後にCLOAD[CR]RUN[CR]が実行され、「c」とすればCLOAD[CR]だけが実行、「n」とすれば何も実行されません。
 
 #### 操作上の注意
 　「SD-CARD INITIALIZE ERROR」と表示されたときは、SD-CARDが挿入されているか確認し、PC-6001本体をリセットしてください。Arduinoのみのリセットでは復旧しません。
@@ -258,7 +258,7 @@ B[CR]と動作は同じです。
 　SD-CARDの抜き差しは電源を切った状態で行うほうがより確実です。
 
 ### BASICコマンド
-#### LOAD "DOSファイル名"[CR]
+#### CLOAD "DOSファイル名"[CR]
 指定したDOSフィル名のBASICプログラムをSD-CARDからLOADします。
 
 ファイル名は6文字以内で必須です。6文字以上入力された場合には7文字以降は無視されます。ファイル名を入力せずにCLOAD[CR]とすると暴走します。
@@ -269,13 +269,13 @@ B[CR]と動作は同じです。
 
 　例)
 
-　　LOAD "TEST" -> DOSファイル名「TEST.CAS」を読み込みます。
+　　CLOAD "TEST" -> DOSファイル名「TEST.CAS」を読み込みます。
 
-　　LOAD "TESTTEST" -> DOSファイル名「TESTTE.CAS」を読み込みます。
+　　CLOAD "TESTTEST" -> DOSファイル名「TESTTE.CAS」を読み込みます。
 
-　　LOAD "TEST.BAS.CMT" -> DOSファイル名「TEST.BA.CMT」を読み込みます。
+　　CLOAD "TEST.BAS.CMT" -> DOSファイル名「TEST.BA.CMT」を読み込みます。
 
-#### SAVE "DOSファイル名"[CR]
+#### CSAVE "DOSファイル名"[CR]
 BASICプログラムを指定したDOSフィル名でSD-CARDに上書きSAVEします。
 
 ファイル名は6文字以内で必須です。6文字以上入力された場合には7文字以降は無視されます。
@@ -286,9 +286,9 @@ BASICプログラムを指定したDOSフィル名でSD-CARDに上書きSAVEし�
 
 　例)
 
-　　SAVE "TEST" -> 「TEST.CAS」で保存される。
+　　CSAVE "TEST" -> 「TEST.CAS」で保存される。
 
-　　SAVE "TESTTEST" -> 「TESTTE.CAS」で保存される。
+　　CSAVE "TESTTEST" -> 「TESTTE.CAS」で保存される。
 
 ## 謝辞
 　基板の作成に当たり以下のデータを使わせていただきました。ありがとうございました。
@@ -300,3 +300,8 @@ BASICプログラムを指定したDOSフィル名でSD-CARDに上書きSAVEし�
 　AE-microSD-LLCNV
 
 　　https://github.com/kuninet/PC-8001-SD-8kRAM
+
+## 追記
+　2023. 3. 4 AUTO STARTの選択肢をy/c/nとし、CLOADも実行しない選択を追加
+
+　　　　　　CLOAD、CSAVEがLOAD、SAVEと誤表記されていたものを修正

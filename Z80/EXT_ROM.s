@@ -452,7 +452,7 @@ DCLR:	CALL	DSPCLR
 PG_SEL:
 		DB		'How Many Pages?(1-4)',00H
 AS_SEL:
-		DB		'Auto Run?(y/n)',00H
+		DB		'Auto Run?(y/c/n)',00H
 MS_SAVE
 		DB		'Saving ',00H
 ATSTR:
@@ -495,7 +495,11 @@ PL2:	CALL	MONCLF
 		CALL	CONOUT
 		CP		'Y'
 		JR		Z,P67
-		LD		A,8					;AUTOSTARTï∂éöóÒêî
+		CP		'C'
+		JR		Z,P671
+		LD		A,2					;AUTOSTARTï∂éöóÒêî
+		JR		P68
+P671:	LD		A,8
 		JR		P68
 P67:	LD		A,12				;AUTOSTARTï∂éöóÒêî
 P68:	LD		(ASTRLEN),A
@@ -513,8 +517,11 @@ P63:	LD		A,(DE)
 		DJNZ	P63
 
 P64:	LD		A,(ASTRLEN)
+
 		CP		8
 		JR		Z,P66
+		CP		2
+		JR		Z,P661
 		LD		B,ATSTR_END-ATSTR
 		LD		DE,ATSTR
 		JR		P65
@@ -525,7 +532,7 @@ P65:	LD		A,(DE)
 		INC		HL
 		INC		DE
 		DJNZ	P65
-		LD		A,(MODEL)
+P661:	LD		A,(MODEL)
 		AND		A
 		JP		Z,DCLR
 
