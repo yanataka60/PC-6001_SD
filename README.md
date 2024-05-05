@@ -90,6 +90,8 @@
 　Z80フォルダ内のEXT_ROM.binをROMライター(TL866II Plus等)を使って2764又は28C64に書き込みます。
 
 ## Arduinoプログラム
+　PC-6001mk2_SDと全く同じものを使用しています
+
 　Arduino IDEを使ってPC-6001mk2_SDプロジェクトArduinoフォルダのPC-6001mk2_SDフォルダ内PC-6001mk2_SD.inoを書き込みます。
 
 　SdFatライブラリを使用しているのでArduino IDEメニューのライブラリの管理からライブラリマネージャを立ち上げて「SdFat」をインストールしてください。
