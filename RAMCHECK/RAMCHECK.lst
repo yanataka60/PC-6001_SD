@@ -1,0 +1,119 @@
+                                ;*** AILZ80ASM *** Z-80 Assembler, version 1.0.28.0, LST:Full:4
+       8400                     CHKST       EQU     08400H
+       F700                     CHKEND      EQU     0F700H
+                                
+       1075                     CONOUT      EQU     1075H           ;CRTへの1バイト出力
+       2739                     MONCLF      EQU     2739H           ;CRコード及びLFコードの表示
+       30CF                     MSGOUT      EQU     30CFH           ;文字列の出力
+                                
+000000 F800                                 ORG     0F800H
+                                
+                                ;******** 事前にRAMに書き込み *********************
+000000 F800 210084          10              LD      HL,CHKST    ;書込開始アドレス
+000003 F803 1100F7          10              LD      DE,CHKEND   ;書込終了アドレス+1
+                                
+000006 F806 7D               4  LOP0:       LD      A,L
+000007 F807 77               7              LD      (HL),A      ;RAM書込
+000008 F808 23               6              INC     HL          ;書込開始アドレス+1
+000009 F809 E5              11              PUSH    HL
+00000A F80A A7               4              AND     A
+00000B F80B ED52            15              SBC     HL,DE       ;書込開始アドレスが書込終了アドレス以下ならループ
+00000D F80D E1              10              POP     HL
+00000E F80E 20F6            12              JR      NZ,LOP0
+                                
+                                ;******** RAM CHECK START **************
+000010 F810 210084          10              LD      HL,CHKST    ;CHECK開始アドレス
+000013 F813 1100F7          10              LD      DE,CHKEND   ;CHECK終了アドレス+1
+                                            
+000016 F816 CD3927          17  LOP1:       CALL    MONCLF      ;改行
+000019 F819 CD7DF8          17              CALL    PR4HEX      ;CHECKアドレス表示
+00001C F81C CD77F8          17              CALL    MONSPC      ;空白
+                                
+00001F F81F 7D               4              LD      A,L
+000020 F820 CD8AF8          17              CALL    PR2HEX      ;書込んだはずのDATAを表示
+000023 F823 7E               7              LD      A,(HL)      ;RAM読込
+000024 F824 CD8AF8          17              CALL    PR2HEX      ;RAMから読み出したDATAを表示
+000027 F827 BD               4              CP      L           ;読込DATA比較
+000028 F828 202F            12              JR      NZ,ERR      ;一致しなければERR
+                                            
+00002A F82A CD77F8          17              CALL    MONSPC      ;空白
+                                
+00002D F82D 3E55             7              LD      A,55H       ;書込DATA
+00002F F82F CD8AF8          17              CALL    PR2HEX      ;書込DATA表示
+000032 F832 77               7              LD      (HL),A      ;CHECK DATA 書込
+000033 F833 7E               7              LD      A,(HL)      ;CHECK DATA 読込
+000034 F834 CD8AF8          17              CALL    PR2HEX      ;読込DATA表示
+000037 F837 FE55             7              CP      55H         ;読込DATA比較
+000039 F839 201E            12              JR      NZ,ERR      ;一致しなければERR
+                                            
+00003B F83B CD77F8          17              CALL    MONSPC      ;空白
+                                
+00003E F83E 3EAA             7              LD      A,0AAH      ;書込DATA
+000040 F840 CD8AF8          17              CALL    PR2HEX      ;書込DATA表示
+000043 F843 77               7              LD      (HL),A      ;CHECK DATA 書込
+000044 F844 7E               7              LD      A,(HL)      ;CHECK DATA 読込
+000045 F845 CD8AF8          17              CALL    PR2HEX      ;読込DATA表示
+000048 F848 FEAA             7              CP      0AAH        ;読込DATA比較
+00004A F84A 200D            12              JR      NZ,ERR      ;一致しなければERR
+                                            
+00004C F84C 23               6              INC     HL          ;CHECK開始アドレス+1
+00004D F84D E5              11              PUSH    HL
+00004E F84E A7               4              AND     A
+00004F F84F ED52            15              SBC     HL,DE       ;CHECK開始アドレスがCHECK終了アドレス以下ならループ
+000051 F851 E1              10              POP     HL
+000052 F852 20C2            12              JR      NZ,LOP1
+000054 F854 2160F8          10              LD      HL,MSG_OK
+000057 F857 1803            12              JR      MSG
+                                
+000059 F859 216AF8          10  ERR:        LD      HL,MSG_ERR
+00005C F85C CDCF30          17  MSG:        CALL    MSGOUT
+00005F F85F 76               4              HALT
+                                
+000060 F860 52414D204F4B210D    MSG_OK:     DB      'RAM OK!',0DH,0AH,00H
+            0A00                
+                                
+00006A F86A 52414D204552524F    MSG_ERR:    DB      'RAM ERROR!',0DH,0AH,00H
+            52210D0A00          
+                                
+       F877                     MONSPC:
+000077 F877 3E20             7              LD      A,20H
+000079 F879 CD7510          17              CALL    CONOUT
+00007C F87C C9              10              RET
+                                
+00007D F87D E5              11  PR4HEX:     PUSH    HL
+00007E F87E F5              11              PUSH    AF
+00007F F87F 7C               4              LD      A,H
+000080 F880 CD8AF8          17              CALL    PR2HEX
+000083 F883 7D               4              LD      A,L
+000084 F884 CD8AF8          17              CALL    PR2HEX
+000087 F887 F1              10              POP     AF
+000088 F888 E1              10              POP     HL
+000089 F889 C9              10              RET
+                                
+00008A F88A E5              11  PR2HEX:     PUSH    HL          ;Aレジスタの内容を16進数2桁で表示
+00008B F88B F5              11              PUSH    AF
+00008C F88C F5              11              PUSH    AF
+00008D F88D E6F0             7              AND     0F0H
+00008F F88F CB3F             8              SRL     A
+000091 F891 CB3F             8              SRL     A
+000093 F893 CB3F             8              SRL     A
+000095 F895 CB3F             8              SRL     A
+000097 F897 CDA9F8          17              CALL    HEX2ASC
+00009A F89A CD7510          17              CALL    CONOUT
+00009D F89D F1              10              POP     AF
+00009E F89E E60F             7              AND     0FH
+0000A0 F8A0 CDA9F8          17              CALL    HEX2ASC
+0000A3 F8A3 CD7510          17              CALL    CONOUT
+0000A6 F8A6 F1              10              POP     AF
+0000A7 F8A7 E1              10              POP     HL
+0000A8 F8A8 C9              10              RET
+                                
+0000A9 F8A9 FE0A             7  HEX2ASC:    CP      0AH
+0000AB F8AB 3003            12              JR      NC,HA2
+0000AD F8AD C630             7              ADD     A,30H
+0000AF F8AF C9              10              RET
+0000B0 F8B0 C637             7  HA2:        ADD     A,37H
+0000B2 F8B2 C9              10              RET
+                                
+                                            END
+[EOF:RAMCHECK.s:SHIFT_JIS]
